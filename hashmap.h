@@ -15,12 +15,12 @@ class HashMap {
     typedef std::list<typename std::list<MapValue>::iterator> ListMVIter;
     typedef std::list<typename std::list<MapValue>::const_iterator> ListMVIterConst;
 
-    constexpr static int siz = 1;
+    constexpr static int initialSize = 1;
     constexpr static float expansionFactor = 0.5;
 
     std::vector<ListMVIter> Map;
     std::list<MapValue> elements;
-    int len;
+    int length;
     Hash hasher;
 
     typename ListMVIter::iterator findKey(
@@ -112,7 +112,7 @@ public:
         }
 
         const MapValueConst * operator ->() const {
-            MapValueConst iterator_const = make_pair((*const_cast<KeyType const *>(&iter->first)), iter->second);
+           MapValueConst iterator_const = make_pair((*const_cast<KeyType const *>(&iter->first)), iter->second);
             return &iterator_const;
         }
 
@@ -137,22 +137,22 @@ public:
     };
 
     HashMap(const Hash & hash = std::hash<KeyType>()) :hasher(hash) {
-        len = 0;
-        Map.resize(siz);
+        length = 0;
+        Map.resize(initialSize);
     }
 
     template<class Iterator>
     HashMap(Iterator begin, Iterator end, const Hash & hash = std::hash<KeyType>()) : hasher(hash) {
-        len = 0;
-        Map.resize(siz);
+        length = 0;
+        Map.resize(initialSize);
         while (begin != end) {
             insert(*begin);
             begin++;
         }
     }
 
-    HashMap(const std::initializer_list<MapValue> & l) :len(0) {
-        Map.resize(siz);
+    HashMap(const std::initializer_list<MapValue> & l) :length(0) {
+        Map.resize(initialSize);
         auto p = l.begin();
         while (p != l.end()) {
             insert(*p);
@@ -161,11 +161,11 @@ public:
     }
 
     int size() const {
-        return len;
+        return length;
     }
 
     bool empty() const {
-        return len == 0;
+        return length == 0;
     }
 
     Hash hash_function() const {
@@ -188,8 +188,8 @@ public:
             return;
         elements.push_back(q);
         Map[hash].push_back(--elements.end());
-        len++;
-        if (len*expansionFactor >= Map.size()) {
+        length++;
+        if (length*expansionFactor >= Map.size()) {
             rebuild();
         }
     }
@@ -200,7 +200,7 @@ public:
         if (search.second) {
             elements.erase(*search.first);
             Map[hash].erase(search.first);
-            len--;
+            length--;
         }
     }
 
@@ -259,6 +259,6 @@ public:
             Map[hash].clear();
         }
         elements.clear();
-        len = 0;
+        length = 0;
     }
 };
