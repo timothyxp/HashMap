@@ -1,6 +1,4 @@
-﻿  stdafx.cpp
-  HashMap.cpp
+﻿  HashMap.cpp
 c:\users\тимофей\documents\visual studio 2015\projects\homework\hashmap\hashmap\hashmap.cpp(94): warning C4101: e: неиспользованная локальная переменная
-  Создание кода...
   HashMap.vcxproj -> C:\Users\Тимофей\Documents\Visual Studio 2015\Projects\homework\HashMap\Debug\HashMap.exe
   HashMap.vcxproj -> C:\Users\Тимофей\Documents\Visual Studio 2015\Projects\homework\HashMap\Debug\HashMap.pdb (Full PDB)
